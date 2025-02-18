@@ -1,0 +1,51 @@
+{
+  "Index": {
+    "name": "Xiaoxiao Wu",
+    "title": "Distinguished Researcher, Doctoral Supervisor, Associate Professor",
+    "email": "xxwu.eesissi@gmail.com",
+    "aboutMe": "About Me",
+    "aboutText": "I am a freestyle researcher who works following my own interests. My research is rooted in deep mathematical foundations, such as probability statistics, stochastic signal processing, and optimization theory. I was engaged in communication system-related work in my early years and have a very solid foundation in the field of electronic engineering. After that, I moved to the field of distributed networks and conducted research on distributed computing, distributed networks, and social networks. In recent years, I have conducted different types of research topics in the fields of computer vision, privacy computing, blockchain networks, and AI large models. All the above research was led by myself. I hope that my students will be interested in their own research projects, have strong self-motivation, learn basic skills in my research group, and have the potential to expand their interests in any related fields. The world is big, the unknown is huge, exploration is the meaning of it all.",
+    "researchInterests": "Research Interests",
+    "researchList": [
+      "5G Communication Systems",
+      "Distributed Computing",
+      "Distributed Networks",
+      "Social Networks",
+      "Computer Vision",
+      "Privacy Computing",
+      "Blockchain Networks",
+      "AI Large Language Models"
+    ]
+  },
+  "Navigation": {
+    "home": "Home",
+    "articles": "Articles",
+    "introduction": "Introduction",
+    "publication": "Publications",
+    "project": "Projects",
+    "groupMembers": "Group Members",
+    "gallery": "Gallery",
+    "currentCourses": "Courses"
+  },
+  "Common": {
+    "onThisPage": "On this page",
+    "readMore": "Read more",
+    "published": "Published",
+    "updated": "Updated",
+    "projects": "Projects",
+    "author": "Author",
+    "status": "Status",
+    "tags": "Tags"
+  },
+  "Courses": {
+    "currentCourses": "Current Courses",
+    "viewCourse": "View Course Details",
+    "period": "Period",
+    "backToCourses": "Back to Courses"
+  },
+  "Projects": {
+    "projects": "Research Projects",
+    "viewProject": "View Project Details",
+    "backToProjects": "Back to Projects"
+  }
+} 

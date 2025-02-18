@@ -1,0 +1,51 @@
+{
+  "Index": {
+    "name": "吴晓晓",
+    "title": "深圳大学特聘研究员、博士生导师、副教授",
+    "email": "xxwu.eesissi@gmail.com",
+    "aboutMe": "关于我",
+    "aboutText": "我是一个自由风格的研究者，跟随自己的兴趣工作。我的研究根植于深厚的数学基础，例如：概率统计、随机信号处理、最优化理论。我早年从事通信系统相关的工作，有非常深厚的电子工程领域的基础。之后我转战分布式网络领域，对分布式计算、分布式网络、社交网络进行研究。近年来，我在计算机视觉、隐私计算、区块链网络、AI大模型领域有不同类型的研究题目。以上所有的研究都由自己主导。我希望我的学生可以对自己的研究项目有兴趣，有强大的自我驱动力，在我的研究小组学会基本的技能，有潜能在任何相关领域扩展自己的兴趣。世界很大，未知很大，探索是这一切的意义。",
+    "researchInterests": "研究领域",
+    "researchList": [
+      "5G通信系统",
+      "分布式计算",
+      "分布式网络",
+      "社交网络",
+      "计算机视觉",
+      "隐私计算",
+      "区块链网络",
+      "AI大模型"
+    ]
+  },
+  "Navigation": {
+    "home": "首页",
+    "articles": "文章",
+    "introduction": "个人简介",
+    "publication": "发表文章",
+    "project": "研究项目",
+    "groupMembers": "团队成员",
+    "gallery": "相册",
+    "currentCourses": "课程"
+  },
+  "Common": {
+    "onThisPage": "本页目录",
+    "readMore": "阅读更多",
+    "published": "发布于",
+    "updated": "更新于",
+    "projects": "项目列表",
+    "author": "作者",
+    "status": "状态",
+    "tags": "标签"
+  },
+  "Courses": {
+    "currentCourses": "当前课程",
+    "viewCourse": "查看课程详情",
+    "period": "开课时间",
+    "backToCourses": "返回课程列表"
+  },
+  "Projects": {
+    "projects": "研究项目",
+    "viewProject": "查看项目详情",
+    "backToProjects": "返回项目列表"
+  }
+} 

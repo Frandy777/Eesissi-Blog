@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* MiSans 字体声明 */
+@font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MiSans';
+  src: url('/fonts/MiSans-Heavy.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    @apply bg-gradient-to-br from-[#f8f7f4] to-[#e8e7e4] text-gray-900 font-['MiSans'];
+  }
+
+  .dark {
+    @apply bg-gradient-to-br from-[#1a1a1a] to-[#252525] text-gray-100;
+  }
+}
+
+@layer base {
+  body {
+    @apply text-gray-900 font-['MiSans'];
+  }
+
+  .dark body {
+    @apply text-gray-100;
+  }
+}
+
+/* 暗色模式下的文本颜色 */
+.dark .prose {
+  @apply prose-gray dark:prose-invert;
+}
+
+/* 颜色变量 */
+:root {
+  --text-primary: theme('colors.gray.900');
+  --text-secondary: theme('colors.gray.600');
+  --text-tertiary: theme('colors.gray.500');
+  
+  /* 主要背景色 - 米色 */
+  --bg-primary: #f8f7f4;
+  /* 侧边栏背景色 - 稍微深一点的米色 */
+  --bg-secondary: #f5f4f1;
+  /* 悬停和激活状态背景色 */
+  --bg-hover: #eceae6;
+  --bg-active: #e8e6e1;
+}
+
+.dark {
+  --text-primary: theme('colors.gray.100');
+  --text-secondary: theme('colors.gray.400');
+  --text-tertiary: theme('colors.gray.500');
+  
+  /* 主要背景色 - 深色 */
+  --bg-primary: #1a1a1a;
+  /* 侧边栏背景色 - 稍微浅一点的深色 */
+  --bg-secondary: #1f1f1f;
+  /* 悬停和激活状态背景色 */
+  --bg-hover: #2a2a2a;
+  --bg-active: #333333;
+}
+
+@layer utilities {
+  .text-primary {
+    color: var(--text-primary);
+  }
+  
+  .text-secondary {
+    color: var(--text-secondary);
+  }
+  
+  .text-tertiary {
+    color: var(--text-tertiary);
+  }
+
+  .bg-primary {
+    background-color: var(--bg-primary);
+  }
+
+  .bg-secondary {
+    background-color: var(--bg-secondary);
+  }
+}
+
+/* 滚动动画 */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
