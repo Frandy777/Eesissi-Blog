@@ -1,14 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-
-interface ProjectData {
-  content: string;
-}
 
 export default function ProjectDetailPage() {
   const { lang, projectId } = useParams();

@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname, useParams } from 'next/navigation';
 import {
-  Home,
   BookOpen,
   FileText,
   Rocket,

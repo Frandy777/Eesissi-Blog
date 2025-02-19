@@ -4,10 +4,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
-interface MembersData {
-  content: string;
-}
-
 export default function MembersPage() {
   const { lang } = useParams();
   const [content, setContent] = useState<string>('');

@@ -25,7 +25,24 @@ interface MarkdownRendererProps {
 
 interface ComponentProps {
   children?: ReactNode;
-  [key: string]: any;
+  className?: string;
+  style?: React.CSSProperties;
+  id?: string;
+  title?: string;
+  dir?: string;
+  lang?: string;
+  onClick?: React.MouseEventHandler;
+  onMouseEnter?: React.MouseEventHandler;
+  onMouseLeave?: React.MouseEventHandler;
+}
+
+interface ImageProps extends ComponentProps {
+  src?: string;
+  alt?: string;
+  width?: string | number;
+  height?: string | number;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'auto' | 'sync';
 }
 
 const components: Components = {
@@ -49,7 +66,7 @@ const components: Components = {
       {children}
     </p>
   ),
-  img: ({ src, alt, className, ...props }: { src?: string; alt?: string; className?: string; [key: string]: any }) => {
+  img: ({ src, alt, className, ...props }: ImageProps) => {
     const imageSrc = src?.startsWith('/images/') 
       ? src
       : src;

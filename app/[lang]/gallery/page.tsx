@@ -4,10 +4,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
-interface GalleryData {
-  content: string;
-}
-
 export default function GalleryPage() {
   const { lang } = useParams();
   const [content, setContent] = useState<string>('');
