@@ -3,17 +3,13 @@ import { join } from 'path';
 import { readFile } from 'fs/promises';
 import matter from 'gray-matter';
 
-type Params = { courseId: string };
-
 export async function GET(
-  request: Request,
-  context: { params: Params }
+  request: Request
 ) {
   try {
-    const { searchParams } = new URL(request.url);
-    const locale = searchParams.get('locale') || 'zh';
-    const params = await Promise.resolve(context.params);
-    const { courseId } = params;
+    const url = new URL(request.url);
+    const locale = url.searchParams.get('locale') || 'zh';
+    const courseId = url.pathname.split('/').pop();
 
     if (!courseId) {
       return NextResponse.json(

@@ -3,17 +3,13 @@ import { readFile } from 'fs/promises';
 import { NextResponse } from 'next/server';
 import matter from 'gray-matter';
 
-type Params = { projectId: string };
-
 export async function GET(
-  request: Request,
-  context: { params: Params }
+  request: Request
 ) {
   try {
-    const { searchParams } = new URL(request.url);
-    const locale = searchParams.get('locale') || 'zh';
-    const params = await Promise.resolve(context.params);
-    const { projectId } = params;
+    const url = new URL(request.url);
+    const locale = url.searchParams.get('locale') || 'zh';
+    const projectId = url.pathname.split('/').pop();
 
     if (!projectId) {
       return NextResponse.json(
