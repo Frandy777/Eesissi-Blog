@@ -114,3 +114,13 @@ eesissiblog/
 - **Geist**: MIT License
   - 版权所有 (c) 2023 Vercel Inc.
   - https://github.com/vercel/geist-font/blob/main/LICENSE.txt
+
+## 问题反馈
+
+如果您在使用过程中遇到任何问题，欢迎通过以下方式联系我们：
+
+📧 邮箱: 
+- [frandy777@icloud.com](mailto:frandy777@icloud.com)
+- [eesissi@163.com](mailto:eesissi@163.com)
+
+我们将尽快回复您的问题并提供帮助。
