@@ -1,10 +1,18 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
+import { locales } from '@/i18n/settings';
 
-export default function Home() {
-  const t = useTranslations('Index');
+export function generateStaticParams() {
+  return locales.map((locale) => ({ lang: locale }));
+}
+
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
+export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang } = await params;
+  
+  const t = await getTranslations({ locale: lang, namespace: 'Index' });
 
   const researchList = t.raw('researchList') as string[];
 
@@ -66,4 +74,4 @@ export default function Home() {
       </div>
     </main>
   );
-} 
+}
