@@ -1,52 +1,30 @@
-'use client';
-
-import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { getTranslations } from 'next-intl/server';
+import { getAllCourses } from '@/lib/courses';
+import { locales } from '@/i18n/settings';
 
-interface CourseCard {
-  id: string;
-  title: {
-    zh: string;
-    en: string;
-  };
-  description: {
-    zh: string;
-    en: string;
-  };
-  period: string;
+// 生成所有语言的静态路径
+export function generateStaticParams() {
+  return locales.map((locale) => ({ lang: locale }));
 }
 
-export default function CoursesPage() {
-  const { lang } = useParams();
-  const t = useTranslations('Courses');
-  const [courses, setCourses] = useState<CourseCard[]>([]);
-  const [loading, setLoading] = useState(true);
+// 配置静态生成
+export const dynamic = 'force-static';
+export const revalidate = 86400; // 每天重新验证一次
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        const response = await fetch('/api/courses');
-        if (!response.ok) {
-          throw new Error('Failed to fetch courses');
-        }
-        const data = await response.json();
-        setCourses(data);
-      } catch (error) {
-        console.error('Error fetching courses:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+export default async function CoursesPage({ params }: { params: Promise<{ lang: string }> }) {
+  // 解析params Promise
+  const { lang } = await params;
+  const t = await getTranslations('Courses');
+  
+  // 获取所有课程数据
+  const courses = await getAllCourses();
 
-    fetchCourses();
-  }, []);
-
-  if (loading) {
+  if (!courses || courses.length === 0) {
     return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-8">{t('currentCourses')}</h1>
+        <p className="text-neutral-600 dark:text-neutral-400">No courses found.</p>
       </div>
     );
   }

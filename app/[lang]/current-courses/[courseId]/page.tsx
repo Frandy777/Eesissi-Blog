@@ -1,53 +1,32 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
+import { getCourseById, getAllCourseIds } from '@/lib/courses';
+import { locales } from '@/i18n/settings';
 
-export default function CourseDetailPage() {
-  const { lang, courseId } = useParams();
-  const t = useTranslations('Courses');
-  const [content, setContent] = useState<string>('');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+// 生成所有课程ID和语言的组合路径
+export async function generateStaticParams() {
+  const courseIds = await getAllCourseIds();
+  
+  return courseIds.flatMap(courseId => 
+    locales.map(locale => ({
+      lang: locale,
+      courseId
+    }))
+  );
+}
 
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const response = await fetch(`/api/courses/${courseId}?locale=${lang}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setContent(data.content);
-      } catch (err) {
-        console.error('Error fetching course:', err);
-        setError(err instanceof Error ? err.message : 'Failed to fetch course');
-      } finally {
-        setLoading(false);
-      }
-    };
+// 配置静态生成
+export const dynamic = 'force-static';
+export const revalidate = 86400; // 每天重新验证一次
 
-    fetchCourse();
-  }, [courseId, lang]);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-red-500">Error: {error}</h1>
-      </div>
-    );
-  }
+export default async function CourseDetailPage({ params }: { params: Promise<{ lang: string, courseId: string }> }) {
+  // 解析params Promise
+  const { lang, courseId } = await params;
+  const t = await getTranslations('Courses');
+  
+  // 获取课程详情数据
+  const { content } = await getCourseById(courseId, lang);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
