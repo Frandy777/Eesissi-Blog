@@ -1,10 +1,11 @@
 # EESISISI 个人学术网站
 
-这是一个基于 Next.js 构建的个人学术网站，使用 App Router 和 Server Components，支持中英文双语切换。
+这是一个基于 Next.js 构建的个人学术网站，使用 App Router 和 Server Components，支持中英文双语切换。网站采用静态生成(SSG)方式，提供更快的加载速度和更好的SEO性能。
 
 ## 技术栈
 
 - **框架**: [Next.js](https://nextjs.org)
+- **渲染方式**: 静态生成 (SSG)
 - **样式**: [Tailwind CSS](https://tailwindcss.com)
 - **国际化**: [next-intl](https://next-intl-docs.vercel.app)
 - **主题**: [next-themes](https://github.com/pacocoursey/next-themes)
@@ -28,6 +29,8 @@
 - 📚 课程管理
 - 👥 团队成员展示
 - 🖼️ 图片画廊
+- ⚡ 静态生成提供更快的加载速度
+- 🔎 优化的SEO性能
 
 ## 快速开始
 
@@ -52,6 +55,12 @@ npm run dev
 
 访问 [http://localhost:3000](http://localhost:3000) 查看网站。
 
+4. **构建静态网站**
+
+```bash
+npm run build
+```
+
 ## 项目结构
 
 ```
@@ -67,6 +76,7 @@ eesissiblog/
 │   ├── projects/      # 项目内容
 │   ├── publication/  # 发表文章
 │   └── translations/ # 翻译文件
+├── lib/              # 工具函数和数据获取
 ├── public/           # 静态资源
 │   ├── images/      # 图片资源
 │   └── fonts/      # 字体文件
@@ -79,6 +89,27 @@ eesissiblog/
 - 支持中英文内容分别管理
 - 图片资源统一存放在 `public/images` 目录
 - 详细的内容管理指南请参考 [MAINTENANCE_GUIDE.md](./MAINTENANCE_GUIDE.md)
+
+## 静态生成
+
+本网站采用静态生成(SSG)方式构建，具有以下优势：
+
+- **更快的页面加载速度**：页面在构建时预渲染为静态HTML
+- **改进的SEO性能**：搜索引擎可以更容易地索引静态内容
+- **减少客户端负载**：不再需要在客户端获取和处理数据
+- **增强的可靠性**：不依赖于API调用的成功
+- **降低服务器负载**：减少了API请求
+
+所有页面都配置了静态生成：
+- 首页
+- 个人介绍页
+- 项目列表和详情页
+- 课程列表和详情页
+- 发表文章页
+- 团队成员页
+- 图片画廊页
+
+每个页面都使用 `generateStaticParams` 函数预生成所有可能的路径参数组合，并配置了 `revalidate` 参数进行定期重新验证。
 
 ## 开发
 

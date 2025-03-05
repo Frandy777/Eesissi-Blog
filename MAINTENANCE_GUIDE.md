@@ -21,6 +21,23 @@ content/                    # 所有内容文件的根目录
     └── zh.json        # 中文翻译
 ```
 
+## 🚀 静态生成说明
+
+本网站采用静态生成(SSG)方式构建，所有页面在构建时预渲染为静态HTML。这意味着：
+
+1. **内容更新流程**
+   - 添加或修改内容后，需要重新构建网站才能使更改生效
+   - 运行 `npm run build` 命令生成新的静态页面
+   - 部署更新后的静态文件
+
+2. **自动路径生成**
+   - 网站使用 `generateStaticParams` 函数自动生成所有可能的路径
+   - 新添加的项目、课程等内容会在下次构建时自动包含
+
+3. **内容刷新机制**
+   - 所有页面配置了 `revalidate = 86400`（每天重新验证一次）
+   - 如需立即更新，请手动触发重新构建
+
 ## 📚 内容维护指南
 
 ### 🎓 课程维护指南
@@ -62,6 +79,10 @@ period: "2023-2024"
 4. **🖼️ 添加图片**
    - 将课程相关图片放在 `public/images/course/` 目录下
    - 图片命名建议：`courseX_Y.png`（X 为课程编号，Y 为图片序号）
+
+5. **🔄 更新静态页面**
+   - 添加完内容后，运行 `npm run build` 重新生成静态页面
+   - 新课程将自动包含在构建中
 
 #### 路由配置说明
 ```
@@ -105,7 +126,7 @@ content/
 mkdir -p content/projects/projectX/{en,zh}
 ```
 
-2. **项目文件格式规范
+2. **项目文件格式规范**
 ```markdown
 ---
 title: "项目标题"
@@ -122,6 +143,10 @@ order: 1
 **项目说明**：项目详细描述内容...
 ```
 
+3. **🔄 更新静态页面**
+   - 添加完内容后，运行 `npm run build` 重新生成静态页面
+   - 新项目将自动包含在构建中
+
 ## ⚠️ 通用注意事项
 
 1. **📝 文件命名规范**
@@ -133,6 +158,11 @@ order: 1
    - 确保所有内容都有中英文版本
    - 翻译文件位于 `content/translations/` 目录
    - 添加新内容时同时更新翻译文件
+
+3. **🔄 内容更新流程**
+   - 修改内容后需要重新构建网站
+   - 运行 `npm run build` 命令
+   - 部署更新后的静态文件
 
 ## 🖼️ 图片规范
 
@@ -163,26 +193,56 @@ npm run dev   # 启动开发服务器
 npm run build # 构建生产版本
 ```
 
+### 静态生成相关文件
+```
+lib/
+├── courses.ts       # 课程数据获取函数
+├── projects.ts      # 项目数据获取函数
+├── introduction.ts  # 介绍内容获取函数
+├── members.ts       # 成员数据获取函数
+├── publications.ts  # 发表文章数据获取函数
+└── gallery.ts       # 图库数据获取函数
+```
+
 ## ❓ 常见问题解答
 1. **如何预览修改效果？**
    - 访问 http://localhost:3000 查看效果
 
 2. **内容不显示怎么办？**
    - 检查文件名和路径是否正确
+   - 确认是否已运行 `npm run build` 重新生成静态页面
 
 3. **如何添加翻译文本？**
    - 更新 `content/translations/` 中的对应文件
+
+4. **添加新内容后如何使其生效？**
+   - 运行 `npm run build` 命令重新生成静态页面
+   - 部署更新后的静态文件
 
 ## 操作示例
 
 ### 课程添加示例
 ```bash
+# 创建课程目录和文件
 mkdir -p content/course/course3/{en,zh}
 touch content/course/course3/{en,zh}/course3.md
+
+# 编辑课程内容
+# ...
+
+# 重新构建静态页面
+npm run build
 ```
 
 ### 项目添加示例
 ```bash
+# 创建项目目录和文件
 mkdir -p content/projects/project3/{en,zh}
 touch content/projects/project3/{en,zh}/project3.md
+
+# 编辑项目内容
+# ...
+
+# 重新构建静态页面
+npm run build
 ```
