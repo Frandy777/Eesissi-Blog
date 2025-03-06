@@ -8,6 +8,7 @@ import type { ReactNode } from 'react';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
 import { useEffect } from 'react';
+import Image from 'next/image';
 
 // 添加字体声明
 const jetBrainsMonoStyle = `
@@ -66,36 +67,56 @@ const components: Components = {
       {children}
     </p>
   ),
-  img: ({ src, alt, className, ...props }: ImageProps) => {
-    const imageSrc = src?.startsWith('/images/') 
-      ? src
-      : src;
+  img: ({ 
+    src, 
+    alt, 
+    width, 
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ 
+    className, 
+    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */ 
+    ...props 
+  }: ImageProps) => {
+    if (!src) return null;
+    
+    // 处理图片路径
+    const imageSrc = src.startsWith('/images/') ? src : src;
+    
+    // 计算宽度百分比
+    const widthPercent = typeof width === 'string' && width.includes('%') 
+      ? parseInt(width.replace('%', '')) 
+      : 80; // 默认80%宽度
+    
+    // 转换为像素值 (基于容器宽度)
+    const pixelWidth = 1200; // 最大宽度，会根据容器自动缩放
     
     return (
-      <div className="my-4">
-        <img
-          src={imageSrc}
-          alt={alt}
-          className={`${className || 'mx-auto max-w-full h-auto rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 dark:shadow-neutral-900'}`}
-          {...props}
-          onError={(e) => {
-            const target = e.currentTarget;
-            console.error('Image failed to load:', {
-              original: src,
-              processed: imageSrc,
-              element: target
-            });
-            target.style.border = '1px dashed #4B5563';
-            target.style.padding = '20px';
-            target.style.width = '200px';
-            target.style.height = '150px';
-            target.style.display = 'block';
-            target.style.margin = '0 auto';
-            target.style.backgroundColor = '#1F2937';
-          }}
-        />
+      <div className="my-6 w-full flex justify-center">
+        <div className="w-full" style={{ maxWidth: `${widthPercent}%` }}>
+          <Image
+            src={imageSrc}
+            alt={alt || ''}
+            width={pixelWidth}
+            height={0} // 高度自动计算，保持原始比例
+            style={{ 
+              width: '100%',
+              height: 'auto',
+              borderRadius: '0.5rem', // 8px
+              maxWidth: '100%'
+            }}
+            className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:shadow-neutral-900"
+            onError={(e) => {
+              console.error('Image failed to load:', {
+                original: src,
+                processed: imageSrc
+              });
+              const target = e.currentTarget;
+              target.style.border = '1px dashed #4B5563';
+              target.style.backgroundColor = '#1F2937';
+            }}
+          />
+        </div>
         {alt && (
-          <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2">{alt}</p>
+          <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2 w-full">{alt}</p>
         )}
       </div>
     );
