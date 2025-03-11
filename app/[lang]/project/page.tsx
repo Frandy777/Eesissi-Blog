@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
 import { getAllProjects } from '@/lib/projects';
 import { locales } from '@/i18n/settings';
+import fs from 'fs/promises';
+import path from 'path';
 
 // 生成所有语言的静态路径
 export function generateStaticParams() {
@@ -12,10 +13,26 @@ export function generateStaticParams() {
 export const dynamic = 'force-static';
 export const revalidate = 86400; // 每天重新验证一次
 
+// 直接从文件系统加载翻译文件
+async function loadTranslations(locale: string) {
+  try {
+    const filePath = path.join(process.cwd(), 'content', 'translations', `${locale}.json`);
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    const translations = JSON.parse(fileContent);
+    return translations.Projects; // 返回Projects命名空间的翻译
+  } catch (error) {
+    console.error(`Error loading translations for ${locale}:`, error);
+    // 如果加载失败，返回空对象
+    return {};
+  }
+}
+
 export default async function ProjectPage({ params }: { params: Promise<{ lang: string }> }) {
   // 解析params Promise
   const { lang } = await params;
-  const t = await getTranslations('Projects');
+  
+  // 直接从文件系统加载翻译
+  const translations = await loadTranslations(lang);
   
   // 获取所有项目数据
   const projects = await getAllProjects();
@@ -23,7 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ lang: 
   if (!projects || projects.length === 0) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-8">{t('projects')}</h1>
+        <h1 className="text-3xl font-bold mb-8">{translations.projects || 'Research Projects'}</h1>
         <p className="text-neutral-600 dark:text-neutral-400">No projects found.</p>
       </div>
     );
@@ -32,7 +49,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ lang: 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <h1 className="text-3xl font-bold mb-8 text-neutral-900 dark:text-neutral-100">
-        {t('projects')}
+        {translations.projects || 'Research Projects'}
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
         {projects.map((project) => (
@@ -50,7 +67,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ lang: 
               </p>
               <div className="flex items-center justify-end mt-auto pt-4 border-t border-neutral-200 dark:border-neutral-700">
                 <span className="text-sm text-primary font-medium">
-                  {t('viewProject')} →
+                  {translations.viewProject || 'View Project Details'} →
                 </span>
               </div>
             </div>
