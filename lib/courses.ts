@@ -12,7 +12,10 @@ export interface CourseCard {
     zh: string;
     en: string;
   };
-  period: string;
+  period: {
+    zh: string;
+    en: string;
+  };
 }
 
 export interface CourseContent {
@@ -72,7 +75,10 @@ export async function getAllCourses(): Promise<CourseCard[]> {
               zh: zhFrontmatter.description || '',
               en: enFrontmatter.description || '',
             },
-            period: zhFrontmatter.period || enFrontmatter.period || '',
+            period: {
+              zh: zhFrontmatter.period || '',
+              en: enFrontmatter.period || zhFrontmatter.period || '', // 如果英文没有设置，则使用中文值
+            },
           };
         } catch (error) {
           console.error(`Error processing course ${folder}:`, error);

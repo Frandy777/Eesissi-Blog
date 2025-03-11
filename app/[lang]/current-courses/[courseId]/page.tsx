@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import { getTranslations } from 'next-intl/server';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { getCourseById, getAllCourseIds } from '@/lib/courses';
 import { locales } from '@/i18n/settings';
+import fs from 'fs/promises';
+import path from 'path';
 
 // 生成所有课程ID和语言的组合路径
 export async function generateStaticParams() {
@@ -20,10 +21,26 @@ export async function generateStaticParams() {
 export const dynamic = 'force-static';
 export const revalidate = 86400; // 每天重新验证一次
 
+// 直接从文件系统加载翻译文件
+async function loadTranslations(locale: string) {
+  try {
+    const filePath = path.join(process.cwd(), 'content', 'translations', `${locale}.json`);
+    const fileContent = await fs.readFile(filePath, 'utf8');
+    const translations = JSON.parse(fileContent);
+    return translations.Courses; // 返回Courses命名空间的翻译
+  } catch (error) {
+    console.error(`Error loading translations for ${locale}:`, error);
+    // 如果加载失败，返回空对象
+    return {};
+  }
+}
+
 export default async function CourseDetailPage({ params }: { params: Promise<{ lang: string, courseId: string }> }) {
   // 解析params Promise
   const { lang, courseId } = await params;
-  const t = await getTranslations('Courses');
+  
+  // 直接从文件系统加载翻译
+  const translations = await loadTranslations(lang);
   
   // 获取课程详情数据
   const { content } = await getCourseById(courseId, lang);
@@ -47,7 +64,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ l
             d="M10 19l-7-7m0 0l7-7m-7 7h18"
           />
         </svg>
-        {t('backToCourses')}
+        {translations.backToCourses || 'Back to Courses'}
       </Link>
       <div className="prose prose-lg dark:prose-invert max-w-none">
         <MarkdownRenderer content={content} />
