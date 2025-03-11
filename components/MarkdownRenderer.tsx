@@ -63,7 +63,15 @@ const components: Components = {
     </h3>
   ),
   p: ({ children, ...props }: ComponentProps) => (
-    <p className="my-4 leading-relaxed text-sm md:text-base text-neutral-800 dark:text-neutral-300" {...props}>
+    <p 
+      className="my-4 leading-relaxed text-sm md:text-base text-neutral-800 dark:text-neutral-300 break-words" 
+      style={{ 
+        wordBreak: 'break-word',
+        overflowWrap: 'break-word',
+        hyphens: 'auto'
+      }}
+      {...props}
+    >
       {children}
     </p>
   ),
@@ -142,12 +150,26 @@ const components: Components = {
     </ol>
   ),
   li: ({ children, ...props }: ComponentProps) => (
-    <li className="my-1 text-sm md:text-base" {...props}>
+    <li 
+      className="my-1 text-sm md:text-base break-words" 
+      style={{ 
+        wordBreak: 'break-word',
+        overflowWrap: 'break-word'
+      }}
+      {...props}
+    >
       {children}
     </li>
   ),
   blockquote: ({ children, ...props }: ComponentProps) => (
-    <blockquote className="border-l-4 border-neutral-300 dark:border-neutral-700 pl-4 my-4 italic text-neutral-700 dark:text-neutral-300" {...props}>
+    <blockquote 
+      className="border-l-4 border-neutral-300 dark:border-neutral-700 pl-4 my-4 italic text-neutral-700 dark:text-neutral-300 break-words" 
+      style={{ 
+        wordBreak: 'break-word',
+        overflowWrap: 'break-word'
+      }}
+      {...props}
+    >
       {children}
     </blockquote>
   ),
@@ -157,7 +179,14 @@ const components: Components = {
   a: ({ children, href, ...props }: ComponentProps & { href?: string }) => (
     <a
       href={href}
-      className="text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100 transition-colors duration-200 underline"
+      className="text-neutral-700 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-100 transition-colors duration-200 underline break-words"
+      style={{
+        wordBreak: 'break-word',
+        overflowWrap: 'break-word',
+        hyphens: 'auto',
+        maxWidth: '100%',
+        display: 'inline-block'
+      }}
       target={href?.startsWith('http') ? '_blank' : undefined}
       rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
       {...props}
@@ -171,7 +200,14 @@ const components: Components = {
     
     if (isInline) {
       return (
-        <code className="text-neutral-100 rounded px-1 py-0.5 text-sm bg-neutral-800 font-['JetBrains_Mono']" {...props}>
+        <code 
+          className="text-neutral-100 rounded px-1 py-0.5 text-sm bg-neutral-800 font-['JetBrains_Mono'] break-words" 
+          style={{ 
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word'
+          }}
+          {...props}
+        >
           {children}
         </code>
       );
