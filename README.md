@@ -1,6 +1,6 @@
 # EESISISI 个人学术网站
 
-这是一个基于 Next.js 构建的个人学术网站，使用 App Router 和 Server Components，支持中英文双语切换。网站采用静态生成(SSG)方式，提供更快的加载速度和更好的SEO性能。
+这是为WuXiaoXiao老师搭建的个人学术网站，基于 Next.js，支持中英文双语切换。网站采用静态生成(SSG)方式，提供更快的加载速度和更好的SEO性能。
 
 ## 技术栈
 
@@ -13,9 +13,8 @@
 - **代码高亮**: [highlight.js](https://highlightjs.org)
 - **图标**: [Lucide React](https://lucide.dev)
 - **字体**: 
-  - [MiSans](https://web.vip.miui.com/page/info/mio/mio/detail?postId=33935854) (主要字体)
+  - [MiSans](https://hyperos.mi.com/font/zh/) (主要字体)
   - [JetBrains Mono](https://www.jetbrains.com/lp/mono/) (代码字体)
-  - [Geist](https://vercel.com/font) (系统字体)
 
 ## 主要功能
 
