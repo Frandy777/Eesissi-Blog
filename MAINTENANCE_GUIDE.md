@@ -184,6 +184,41 @@ public/
 <img src="/images/[类型]/图片名称.png" className="rounded-lg shadow-md" />
 ```
 
+### 外链图片处理
+1. **支持的外部图片域名**
+   - 目前支持以下外部图片域名：
+     - z1.ax1x.com, z2.ax1x.com, z3.ax1x.com
+     - imgse.com
+     - i.imgur.com
+   - 以及所有 **.ax1x.com 和 **.imgur.com 域名
+
+2. **在Markdown中使用外链图片**
+```markdown
+<img src="https://z3.ax1x.com/2021/05/13/g06aKs.jpg" alt="图片描述" />
+```
+
+3. **添加新的外链图片域名**
+   - 如需支持其他外部图片域名，需修改 `next.config.mjs` 文件
+   - 在 `domains` 数组中添加新的域名
+   - 或在 `remotePatterns` 中添加更通用的匹配模式
+```javascript
+// next.config.mjs
+images: {
+  domains: ['z3.ax1x.com', 'z1.ax1x.com', 'z2.ax1x.com', 'imgse.com', 'i.imgur.com', '新域名'],
+  remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: '**.新域名.com',
+    },
+  ],
+},
+```
+
+4. **外链图片注意事项**
+   - 外链图片可能存在稳定性问题，建议将重要图片下载并存储在本地
+   - 使用外链图片时，网站会自动处理图片加载失败的情况，显示友好的错误提示
+   - 为保证网站长期稳定，推荐优先使用本地图片而非外链图片
+
 ## 🛠️ 工具与配置
 
 ### 本地开发环境
