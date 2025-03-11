@@ -86,6 +86,9 @@ const components: Components = {
   }: ImageProps) => {
     if (!src) return null;
     
+    // 检查是否为外部图片
+    const isExternalImage = src.startsWith('http');
+    
     // 处理图片路径
     const imageSrc = src.startsWith('/images/') ? src : src;
     
@@ -100,28 +103,66 @@ const components: Components = {
     return (
       <div className="my-6 w-full flex justify-center">
         <div className="w-full" style={{ maxWidth: `${widthPercent}%` }}>
-          <Image
-            src={imageSrc}
-            alt={alt || ''}
-            width={pixelWidth}
-            height={0} // 高度自动计算，保持原始比例
-            style={{ 
-              width: '100%',
-              height: 'auto',
-              borderRadius: '0.5rem', // 8px
-              maxWidth: '100%'
-            }}
-            className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:shadow-neutral-900"
-            onError={(e) => {
-              console.error('Image failed to load:', {
-                original: src,
-                processed: imageSrc
-              });
-              const target = e.currentTarget;
-              target.style.border = '1px dashed #4B5563';
-              target.style.backgroundColor = '#1F2937';
-            }}
-          />
+          {isExternalImage ? (
+            // 使用unoptimized属性处理外部图片，避免Next.js的图片优化问题
+            <Image
+              src={imageSrc}
+              alt={alt || ''}
+              width={pixelWidth}
+              height={0} // 高度自动计算，保持原始比例
+              style={{ 
+                width: '100%',
+                height: 'auto',
+                borderRadius: '0.5rem', // 8px
+                maxWidth: '100%'
+              }}
+              className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:shadow-neutral-900"
+              unoptimized={true} // 对外部图片禁用优化
+              onError={(e) => {
+                console.error('External image failed to load:', {
+                  src: imageSrc
+                });
+                const target = e.currentTarget;
+                target.style.border = '1px dashed #4B5563';
+                target.style.backgroundColor = '#1F2937';
+                // 添加错误提示文本
+                const parent = target.parentElement;
+                if (parent) {
+                  const errorText = document.createElement('p');
+                  errorText.textContent = `图片加载失败: ${imageSrc}`;
+                  errorText.style.color = '#EF4444';
+                  errorText.style.fontSize = '0.875rem';
+                  errorText.style.marginTop = '0.5rem';
+                  errorText.style.textAlign = 'center';
+                  parent.appendChild(errorText);
+                }
+              }}
+            />
+          ) : (
+            // 内部图片使用正常的Image组件
+            <Image
+              src={imageSrc}
+              alt={alt || ''}
+              width={pixelWidth}
+              height={0} // 高度自动计算，保持原始比例
+              style={{ 
+                width: '100%',
+                height: 'auto',
+                borderRadius: '0.5rem', // 8px
+                maxWidth: '100%'
+              }}
+              className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:shadow-neutral-900"
+              onError={(e) => {
+                console.error('Image failed to load:', {
+                  original: src,
+                  processed: imageSrc
+                });
+                const target = e.currentTarget;
+                target.style.border = '1px dashed #4B5563';
+                target.style.backgroundColor = '#1F2937';
+              }}
+            />
+          )}
         </div>
         {alt && (
           <p className="text-center text-sm text-neutral-600 dark:text-neutral-400 mt-2 w-full">{alt}</p>
