@@ -96,9 +96,9 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
           {/* 招聘信息 */}
           <div className="w-full">
-            <div className="backdrop-blur-md bg-white bg-opacity-30 dark:bg-neutral-800 dark:bg-opacity-30 rounded-xl shadow-lg p-6 md:p-8 border-l-4 border-primary">
+            <div className="backdrop-blur-md bg-white bg-opacity-30 dark:bg-neutral-800 dark:bg-opacity-30 rounded-xl shadow-lg p-6 md:p-8">
               <h2 className="text-lg md:text-xl font-bold mb-4">{translations.recruitment}</h2>
-              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base whitespace-pre-line">
+              <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:text-base">
                 {translations.recruitmentText}
               </p>
             </div>
