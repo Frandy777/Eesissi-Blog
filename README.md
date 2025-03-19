@@ -16,11 +16,11 @@
   - [MiSans](https://hyperos.mi.com/font/zh/) (主要字体)
   - [JetBrains Mono](https://www.jetbrains.com/lp/mono/) (代码字体)
 
-## 主要功能
+## 主要特性
 
 - 🌍 中英文双语支持
 - 🌓 亮色/暗色主题切换
-- 📱 响应式设计
+- 📱 响应式设计、动态适配桌面端和移动端
 - 📝 Markdown 内容支持
 - 🎨 现代化 UI 设计
 - 🔍 目录自动生成
